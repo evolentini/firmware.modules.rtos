@@ -62,7 +62,7 @@
 /*==================[internal data definition]===============================*/
 <?php
 
-$this->loadHelper("modules/rtos/gen/ginc/Multicore.php");
+$this->loadHelper("modules/freeosek/gen/ginc/Multicore.php");
 
 /* get tasks */
 $tasks = $this->helper->multicore->getLocalList("/OSEK", "TASK");

@@ -72,7 +72,7 @@
 
 <?php
 
-$this->loadHelper("modules/rtos/gen/ginc/Multicore.php");
+$this->loadHelper("modules/freeosek/gen/ginc/Multicore.php");
 
 /* Definitions of Tasks */
 $tasks = $this->helper->multicore->getLocalList("/OSEK", "TASK");

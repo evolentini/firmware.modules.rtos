@@ -85,10 +85,10 @@ extern void PendSV_Handler(void);
 
 /* remove soon
  * you can load the helper here with
-   $this->loadHelper("modules/rtos/gen/ginc/Multicore.php");
+   $this->loadHelper("modules/freeosek/gen/ginc/Multicore.php");
 
  * or when calling generator.php with
-   -H modules/rtos/gen/ginc/Multicore.php
+   -H modules/freeosek/gen/ginc/Multicore.php
  *
 */
 

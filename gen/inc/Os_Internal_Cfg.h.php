@@ -90,14 +90,14 @@ function remove_doubles($a)
 
 /* remove soon
  * you can load the helper here with
-   $this->loadHelper("modules/rtos/gen/ginc/Multicore.php");
+   $this->loadHelper("modules/freeosek/gen/ginc/Multicore.php");
 
  * or when calling generator.php with
-   -H modules/rtos/gen/ginc/Multicore.php
+   -H modules/freeosek/gen/ginc/Multicore.php
  *
 */
 
-$this->loadHelper("modules/rtos/gen/ginc/Multicore.php");
+$this->loadHelper("modules/freeosek/gen/ginc/Multicore.php");
 
 /* get tasks */
 $tasks = $this->helper->multicore->getLocalList("/OSEK", "TASK");
