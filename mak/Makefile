@@ -61,15 +61,33 @@ $(ETC_DIR)/%.oil: $(PROJECT)/etc/%.poil
 	$(PP) $(PFLAGS) -E -x c++ -I modules/base/inc $< | grep -v "^#.*" > $@
 
 define freeosek_templates
-	$(foreach path,$(freeosek_templates_path), $(wildcard $(freeosek_path)/$(path)/*.?.php))
+    $(foreach path,$(freeosek_templates_path), $(wildcard $(freeosek_path)/$(path)/*.?.php))
 endef
+define generated_files
+    $(patsubst $(freeosek_path)/gen/%.php,$(GEN_DIR)/%,$(strip $(call freeosek_templates)))
+endef
+#    $(foreach file,$(generated_files),$(OBJ_DIR)/$($patsubst %.c,$.o,$(notdir file)))
+define generated_objects
+    $(foreach file,$(filter %.c,$(generated_files)),$(OBJ_DIR)/$(patsubst %.c,%.o,$(notdir ,$(file))))
+endef
+
+define generate_command
+	@echo ' '
+	@echo ===============================================================================
+	@echo Run FREEOSEK RTOS Generator
+	@echo ' '
+	$(GE) $(GFLAGS) -c $(project_oil) -t $(strip $(call freeosek_templates)) -o $(GEN_DIR)
+endef
+
 gen_info: $(project_oil)
 	@echo OIL: $(project_oil)
 	@echo POIL: $(project_poil)
+	@echo Templates: $(freeosek_templates)
+	@echo Generated: $(generated_files)
 
 ###############################################################################
 # Rule to generate OS from OILs files
-generate: $(project_oil)
+$(generated_files): $(project_oil)
 	@echo ' '
 	@echo ===============================================================================
 	@echo Run FREEOSEK RTOS Generator
@@ -84,5 +102,6 @@ freeosek_inc += $(GEN_DIR)/inc $(GEN_DIR)/inc/$(ARCH)
 
 freeosek_src = $(freeosek_path)/src $(freeosek_path)/src/$(ARCH) 
 freeosek_src += $(GEN_DIR)/src $(GEN_DIR)/src/$(ARCH)
+freeosek_obj = $(generated_objects)
 
 freeosek_asm += $(freeosek_path)/src/$(ARCH)
